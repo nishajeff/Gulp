@@ -54,6 +54,7 @@ public class EnterReview extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		int uid =Integer.parseInt((String) session.getAttribute("userid"));
 		System.out.println(uid);
+		String d=request.getParameter("Date");
 		// store data in User object and save User object in db
 		 try{
 			 
@@ -67,8 +68,8 @@ public class EnterReview extends HttpServlet {
 	        //creating connection to Oracle database using JDBC              
 	        Statement s=conn.createStatement();
 	        
-	        String query1="insert into review values(" + rid + "," + uid  + ", '" + Review + "', " + Rating + ")";
-	        //System.out.println(query1);
+	        String query1="insert into review values(" + rid + "," + uid  + ", '" + Review + "', " + Rating +",to_date('"+d+ "','mm/dd/yyyy'))";
+	        System.out.println(query1);
 	        s.executeQuery(query1);
 	        message += "<h3> Thanks for your rating! </h3>";
 	        request.setAttribute("message", message);

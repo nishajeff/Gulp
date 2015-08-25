@@ -4,7 +4,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
+
+
 
 
 import javax.servlet.ServletException;
@@ -64,7 +68,7 @@ public class details extends HttpServlet {
 	        	message+="<h4>Address: "+rs.getString("address")+"</h4>";
 	        	message+="<h4>Description: "+rs.getString("description")+"</h4>";
 	        }
-	        String query1="select r.rid,r.review,r.rating,r.user_id,s.cnt,s.avrg from review r,(select rid,count(review)as cnt,avg(rating) as avrg from review group by rid) s where r.rid=s.rid and r.rid="+res_id;
+	        String query1="select r.rid,r.review,r.rating,r.user_id,r.rdate,s.cnt,s.avrg from review r,(select rid,count(review)as cnt,avg(rating) as avrg from review group by rid) s where r.rid=s.rid and r.rid="+res_id;
 	        //System.out.println(query1);
 	        rs=s.executeQuery(query1);
 	        if(rs.next()){
@@ -72,19 +76,22 @@ public class details extends HttpServlet {
 	        	message+="<h4>Average Rating: "+rs.getInt("avrg")+"</h4>";
 	        }
 	        message+="<div align=\"center\"><table style=\"border:2px solid black\">";
-          message+="<th style=\" background-color:yellow;border:2px solid black\">Review</th><th style=\" background-color:yellow;border:2px solid black\">Rating</th><th style=\" background-color:yellow;border:2px solid black\">Customer ID</th>";
+          message+="<th style=\" background-color:yellow;border:2px solid black\">Review</th><th style=\" background-color:yellow;border:2px solid black\">Rating</th><th style=\" background-color:yellow;border:2px solid black\">Customer ID</th><th style=\" background-color:yellow;border:2px solid black\">Date</th>";
           rs=s.executeQuery(query1);
           while(rs.next())
-
              {
-
+        	  
+        	  DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        	  String text = df.format(rs.getDate("rdate"));
+        	 System.out.println(text);
                 message+="<tr >"+
                 		 "</td><td style=\" background-color:yellow;border:2px solid black\">"+rs.getString("review")+
              		   "</td><td style=\" background-color:yellow;border:2px solid black\">"+rs.getInt("rating")+
              		   "</td><td style=\"background-color:yellow;border:2px solid black\">" +rs.getInt("user_id")+
+             		   "</td><td style=\"background-color:yellow;border:2px solid black\">" +text+
              		  "</td></tr>" ;  
 
-               
+//               System.out.println(rs.getString("rdate"));
           }
           
 
@@ -95,7 +102,7 @@ public class details extends HttpServlet {
       	        "</form>";
 	        request.setAttribute("message", message);
  		getServletContext().getRequestDispatcher("/output.jsp").forward(request, response);
-		}catch(Exception e){
+		}catch(Exception e){e.printStackTrace();
 			System.out.println(e.getMessage());
 
 		}finally{

@@ -35,6 +35,8 @@
 </textarea> <br>
 <label> Rating: </label>
 <input  type="text" name="Rating"><br>
+<label>Date: </label>
+<input  type="text" name="Date"><br>
 <label>&nbsp;</label>
 <input type="submit" value="Enter" id="submit">
 </form>
