@@ -5,11 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/CreateAccount")
@@ -35,6 +37,7 @@ public class CreateAccount extends HttpServlet {
 				int ZipCode =Integer.parseInt(request.getParameter("Zipcode"));
 				String name = request.getParameter("Name");
 				String email = request.getParameter("Email");
+				HttpSession session = request.getSession(true);
 				
 				// store data in User object and save User object in db
 				 try{
@@ -53,11 +56,27 @@ public class CreateAccount extends HttpServlet {
 			        //System.out.println(query1);
 			        s.executeQuery(query1);
 			       res = s.executeQuery("select * from rcustomer where user_name = '" + name + "'"); 
+			       message += "<nav class=\"navbar navbar-default\">" + 
+			    		   " <div class=\"container-fluid\">"+
+			    		      "<div class=\"navbar-header\">"+
+			    		       "<a class=\"navbar-brand\" href=\"Home.html\">Gulp</a>"+
+			    		      "</div>"+
+			    		      "<div>"+
+			    		        "<ul class=\"nav navbar-nav\">"+
+			    		       " <li><a href=\"review.jsp\">Enter Review</a></li>"+
+			    		        "<li><a href=\"restaurants.jsp\">List of Restaurants</a></li>"+
+			    		        "<li><a href=\"Profile.jsp\">Profile Search</a></li>"+
+			    		        "</ul>"+
+			    		     " </div>" +
+			    		    "</div>" +
+			    		  "</nav>";
 			      while (res.next())
 			      {
+			   
 			       message += "<h3> Account Created! </h3>";
 			       message += "User ID = " + res.getInt("user_id")+"<br> Name: "+ res.getString("user_name")+"<br> Email: "+ res.getString("email")+"<br> ZipCode: "+ res.getInt("Zipcode");
-			       
+			      session.setAttribute("userid",String.valueOf(res.getInt("user_id")));
+			      System.out.println(session.getAttribute("userid"));
 			      }
 			      request.setAttribute("message", message);
 		    		getServletContext().getRequestDispatcher("/output.jsp").forward(request, response);

@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,15 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/EnterReview")
+public class EnterReview extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      private String message; 
-     Connection conn=null;
- 	 ResultSet res=null;
- 	 
+       Connection conn = null;
+       ResultSet rs = null;
+       String message = "";
 
-    public Login() {
+    public EnterReview() {
         super();
 
     }
@@ -36,20 +33,30 @@ public class Login extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		int ID=0;
-		String id=request.getParameter("userID");
 		// get parameters from the request
-		if(id==null || id.equals("")){
-			ID=0;
-			System.out.println("iD="+ID);
-		}
-		else
-		ID =Integer.parseInt(id);
-		
+		message += "<nav class=\"navbar navbar-default\">" + 
+ " <div class=\"container-fluid\">"+
+    "<div class=\"navbar-header\">"+
+     "<a class=\"navbar-brand\" href=\"Home.html\">Gulp</a>"+
+    "</div>"+
+    "<div>"+
+      "<ul class=\"nav navbar-nav\">"+
+     " <li class=\"active\"><a href=\"#\">Enter Review</a></li>"+
+      "<li><a href=\"restaurants.jsp\">List of Restaurants</a></li>"+
+      "<li><a href=\"Profile.jsp\">Profile Search</a></li>"+
+      "</ul>"+
+   " </div>" +
+  "</div>" +
+"</nav>";
+		int Rating =Integer.parseInt(request.getParameter("Rating"));
+		String Review = request.getParameter("review");System.out.println(Review);
+		int rid =Integer.parseInt(request.getParameter("resID"));
+		HttpSession session = request.getSession(true);
+		int uid =Integer.parseInt((String) session.getAttribute("userid"));
+		System.out.println(uid);
 		// store data in User object and save User object in db
 		 try{
-			  message="";  
+			 
 			  String url= "jdbc:oracle:thin:testuser/password@localhost"; 
 			  Class.forName("oracle.jdbc.driver.OracleDriver");
 	        //properties for creating connection to Oracle database
@@ -60,31 +67,12 @@ public class Login extends HttpServlet {
 	        //creating connection to Oracle database using JDBC              
 	        Statement s=conn.createStatement();
 	        
-	        String query1="select * from rcustomer where user_id = " + ID;
+	        String query1="insert into review values(" + rid + "," + uid  + ", '" + Review + "', " + Rating + ")";
 	        //System.out.println(query1);
-	        res=s.executeQuery(query1);
-	       if (res.next()){
-		        session.setAttribute("userid",id);
-		        System.out.println(session.getAttribute("userid"));
-	   		getServletContext().getRequestDispatcher("/review.jsp").forward(request, response);
-	        }
-	        else{
-	        	message+="<h3>Account does not exist! Create a new Account.</h3>";
-	        	message += "<form action=\"CreateAccount\" method=\"post\">"+
-	        	"<label>Name: </label>"+
-	        	"<input  type=\"text\" name=\"Name\" required ><br>"+
-	        	"<label>Email: </label>"+
-	        	"<input  type=\"text\" name=\"Email\" required ><br>"+
-	        	"<label>Zipcode: </label>"+
-	        	"<input  type=\"text\" name=\"Zipcode\" required ><br>"+
-	        	"<label>&nbsp;</label>"+
-	        	"<input type=\"submit\" value=\"Enter\" id=\"submit\">"+
-	        	"</form>";
-	        	request.setAttribute("message", message);
-	    		getServletContext().getRequestDispatcher("/output.jsp").forward(request, response);
-	        }
-		// set User object in request object and set URL
-		
+	        s.executeQuery(query1);
+	        message += "<h3> Thanks for your rating! </h3>";
+	        request.setAttribute("message", message);
+    		getServletContext().getRequestDispatcher("/output.jsp").forward(request, response);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 
@@ -96,6 +84,7 @@ public class Login extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 }
