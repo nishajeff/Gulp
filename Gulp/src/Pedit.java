@@ -40,6 +40,7 @@ public class Pedit extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
+			message="";
 			int zipcode = 0;
 			HttpSession session = request.getSession(true);
 			int uid =Integer.parseInt((String) session.getAttribute("userid"));

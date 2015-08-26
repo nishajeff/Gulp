@@ -34,7 +34,8 @@ public class Search extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try{	
+		try{
+			message="";
 			int user=Integer.parseInt(request.getParameter("userID"));
 			  String url= "jdbc:oracle:thin:testuser/password@localhost"; 
 			  Class.forName("oracle.jdbc.driver.OracleDriver");

@@ -49,6 +49,7 @@ public class GetCurrentReview extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		 try{
+			 message="";
 			 HttpSession session = request.getSession(true);
 				int uid =Integer.parseInt((String) session.getAttribute("userid"));
 			

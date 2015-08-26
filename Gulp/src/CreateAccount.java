@@ -34,6 +34,7 @@ public class CreateAccount extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get parameters from the request
+				
 				int ZipCode =Integer.parseInt(request.getParameter("Zipcode"));
 				String name = request.getParameter("Name");
 				String email = request.getParameter("Email");

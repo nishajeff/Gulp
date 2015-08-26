@@ -35,6 +35,7 @@
 </form>
 ${message}
 <br>
+<p>Restaurant Id is required to Edit Restaurant.</p>
 <form action="Redit" method="post">
 <label> Enter Restaurant ID: </label>
 <input  type="text" name="id"><br>

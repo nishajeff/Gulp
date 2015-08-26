@@ -45,6 +45,7 @@ public class GetProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
+			message="";
 		HttpSession session = request.getSession(true);
 		int uid =Integer.parseInt((String) session.getAttribute("userid"));
 		String url= "jdbc:oracle:thin:testuser/password@localhost"; 

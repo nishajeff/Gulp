@@ -33,6 +33,7 @@ public class GetRestaurants extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 try{
+			 message="";
 			 String currentpage=request.getParameter("currentpage");
 			  String url= "jdbc:oracle:thin:testuser/password@localhost"; 
 			  Class.forName("oracle.jdbc.driver.OracleDriver");

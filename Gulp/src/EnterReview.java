@@ -34,6 +34,7 @@ public class EnterReview extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get parameters from the request
+		message="";
 		message += "<nav class=\"navbar navbar-default\">" + 
  " <div class=\"container-fluid\">"+
     "<div class=\"navbar-header\">"+

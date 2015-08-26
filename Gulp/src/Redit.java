@@ -37,7 +37,7 @@ public class Redit extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 			
-			
+			message="";
 			String name=request.getParameter("name");
 			String address =  request.getParameter("address");
 			String descript = request.getParameter("des");

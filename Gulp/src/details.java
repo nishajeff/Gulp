@@ -49,6 +49,7 @@ public class details extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try{
+			message="";
 			 String currentpage=request.getParameter("currentpage");
 			String id=request.getParameter("ResID");
 			int res_id=Integer.parseInt(id);
@@ -66,6 +67,7 @@ public class details extends HttpServlet {
 	        rs=s.executeQuery(query);
 	        while(rs.next())
 	        {
+	        	message+="<h3>restaurant ID="+res_id+"</h3>";
 	        	message+="<h3>Name: "+rs.getString("rname")+"</h3>";
 	        	message+="<h4>Address: "+rs.getString("address")+"</h4>";
 	        	message+="<h4>Description: "+rs.getString("description")+"</h4>";
