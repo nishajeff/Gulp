@@ -49,10 +49,11 @@ public class Search extends HttpServlet {
 	        rs=s.executeQuery(q);
 	        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	        if(rs.next()){
-	        	String text = df.format(rs.getDate("rdate"));
+	        	
 	        	message+="Name:"+rs.getString("user_name")+"<br>Email: "+rs.getString("email")+"<br>Zip Code: "+rs.getInt("zipcode")+"<br><h3>REVIEWS:</h3>";
+	        	if(rs.getString("rname")!=null){
 	        	 message+="<div align=\"center\"><table style=\"border:2px solid black\">";
-		         
+	        	String text = df.format(rs.getDate("rdate"));
 	 	        message+="<th style=\" background-color:yellow;border:2px solid black\">Restaurant</th><th style=\" background-color:yellow;border:2px solid black\">Review</th><th style=\" background-color:yellow;border:2px solid black\">Rating</th><th style=\" background-color:yellow;border:2px solid black\">Date</th>";
 	 	       message+="<tr >"+
 	 	    		  "<td style=\"background-color:yellow;border:2px solid black\">" +rs.getString("rname")+
@@ -60,16 +61,19 @@ public class Search extends HttpServlet {
            		   "</td><td style=\" background-color:yellow;border:2px solid black\">"+rs.getInt("rating")+
            		   "</td><td style=\" background-color:yellow;border:2px solid black\">"+text+
            		  "</td></tr>" ;   
+	        	}
 	        
 	        }
 	       
 	        while(rs.next()){
+	        	if(rs.getString("rname")!=null){
 	        	String text = df.format(rs.getDate("rdate"));
 	        			 message+= "<tr><td style=\"background-color:yellow;border:2px solid black\">" +rs.getString("rname")+
 	              		 "</td><td style=\" background-color:yellow;border:2px solid black\">"+rs.getString("review")+
 	           		   "</td><td style=\" background-color:yellow;border:2px solid black\">"+rs.getInt("rating")+
 	           		     "</td><td style=\" background-color:yellow;border:2px solid black\">"+text+
-	           		  "</td></tr>" ;   
+	           		  "</td></tr>" ;
+	        	}
 	        }
 	        message+="\n</tbody>\n</table></div>";
 	        message+="<form action=\"Profile.jsp\">"+

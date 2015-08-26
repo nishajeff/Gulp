@@ -11,6 +11,7 @@ import java.util.Properties;
 
 
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,6 +49,7 @@ public class details extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try{
+			 String currentpage=request.getParameter("currentpage");
 			String id=request.getParameter("ResID");
 			int res_id=Integer.parseInt(id);
 			
@@ -96,12 +98,12 @@ public class details extends HttpServlet {
           
 
           message+="\n</tbody>\n</table></div>";
-          message+="<form action=\"review.jsp\">"+
-      	        "<label>&nbsp;</label>"+
-      	        "<input type=\"submit\" value=\"Go Back to Review\" id=\"submit\">"+
-      	        "</form>";
+          
 	        request.setAttribute("message", message);
- 		getServletContext().getRequestDispatcher("/output.jsp").forward(request, response);
+	        if(currentpage.equalsIgnoreCase("restaurants"))
+ 		getServletContext().getRequestDispatcher("/restaurants.jsp").forward(request, response);
+	        else if(currentpage.equalsIgnoreCase("EditRes"))
+	       		getServletContext().getRequestDispatcher("/EditRes.jsp").forward(request, response);
 		}catch(Exception e){e.printStackTrace();
 			System.out.println(e.getMessage());
 

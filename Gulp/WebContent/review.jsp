@@ -22,11 +22,19 @@
       <li class="active"><a href="#">Enter Review</a></li>
       <li><a href="restaurants.jsp">List of Restaurants</a></li>
        <li><a href="Profile.jsp">Profile Search</a></li>
+        <li><a href="EditProfile.jsp">Edit Profile</a></li>
+      <li><a href="EditRes.jsp">Edit Restaurant</a></li>
+      <li><a href="Change.jsp">Change Review</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
+<form action="GetRestaurants" method="post">
+<input type=hidden value="review" name="currentpage">
+<label>&nbsp;</label>
+<input type="submit" value="Get Restaurants" id="submit">
+</form>
+${message}
 <form action="EnterReview" method="post">
 <label>Restaurant ID: </label>
 <input  type="text" name="resID"><br>

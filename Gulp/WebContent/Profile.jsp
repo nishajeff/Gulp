@@ -21,6 +21,9 @@
       <li><a href="review.jsp">Enter Review</a></li>
       <li><a href="restaurants.jsp">List of Restaurants</a></li>
        <li class="active"><a href="#">Profile Search</a></li>
+       <li><a href="EditProfile.jsp">Edit Profile</a></li>
+      <li><a href="EditRes.jsp">Edit Restaurant</a></li>
+      <li><a href="Change.jsp">Change Review</a></li>
       </ul>
     </div>
   </div>
